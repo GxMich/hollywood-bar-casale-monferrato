@@ -11,8 +11,8 @@ Richiede Node.js 24 e npm.
 ```sh
 npm ci
 npm run dev
-npm test
 npm run build
+npm test
 npm run preview
 ```
 

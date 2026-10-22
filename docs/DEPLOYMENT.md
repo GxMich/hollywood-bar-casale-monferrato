@@ -6,7 +6,7 @@
 - Workflow: `.github/workflows/pages.yml`.
 - Hosting: GitHub Pages, senza Vercel.
 
-Il workflow esegue `npm ci`, `npm test` e `npm run build` con Node.js 24. `VITE_BASE_PATH` usa il nome del repository per bundle, font e immagini nel sottopercorso Pages. Viene caricato solo `dist/client/`; il runtime alternativo non serve su Pages.
+Il workflow esegue `npm ci`, `npm run build` e `npm test` con Node.js 24. La build precede i test perché viene verificato anche il pacchetto compilato. `VITE_BASE_PATH` usa il nome del repository per bundle, font e immagini nel sottopercorso Pages. Viene caricato solo `dist/client/`; il runtime alternativo non serve su Pages.
 
 In locale il percorso predefinito è `/`. Per riprodurre la build Pages in PowerShell:
 
