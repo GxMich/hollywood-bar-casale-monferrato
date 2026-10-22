@@ -14,3 +14,5 @@ Proposta non ufficiale. La pubblicazione della demo è richiesta dall’utente; 
 Le date delle recensioni non certificano quelle degli scatti. Le foto di ricerca sono solo ridimensionate e compresse. I sidecar conservano la provenienza; il footer e la galleria spiegano il contesto. Alcune immagini residue di precedenti proposte non sono caricate dalla pagina corrente.
 
 Storia del locale: [Botteghe Storiche di Casale](https://botteghestorichecasalemonferrato.it/Home/Bottega/hollywood-micheletti-rita). Marchio HTML provvisorio con Anton e simboli Phosphor. Font Archivo, Roboto Condensed e Anton self-hosted tramite Fontsource.
+
+Favicon: monogramma H in Anton, lilla `#c7a0e5` su nero `#121314`, renderizzato direttamente dal carattere già usato nel sito. File PNG da 32 e 64px per le schede del browser e da 180px per Apple Touch. È parte dell’identità provvisoria della demo.
