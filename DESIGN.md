@@ -197,18 +197,18 @@ The frontmatter records desktop base roles. The source applies these optical and
 The apericena title becomes 40px between 901px and 1150px. The two opening headline lines are deliberate and nowrap inside their line wrappers. At the source viewport (1487px), the implemented opening is about 128px; at 390px it is about 56px. Component-specific sizes are not additional global scale steps.
 
 - **Body:** browser-normal root size with the body token's family and paragraph leading. Most narrative sections use the editorial-body role; offer and programme copy become 16px at 900px. Heritage uses 15px on tablet and 16px on mobile.
-- **Opening support:** clamp(20px, 2.14vw, 34px), line-height 1.35; 24px on tablet and 20px/1.45 on mobile. It is supporting display copy, not the standard paragraph style.
+- **Opening support:** clamp(20px, 2.14vw, 34px), line-height 1.35; 24px on tablet and 17px/1.5 on phones (16px below 360px). Phone copy omits the repeated city because a small location label already introduces the title.
 - **Reading widths:** offer copy caps at 460px desktop / 580px tablet; heritage at 510px; section support at 400px; programme support at 365px desktop. Preserve those useful reading columns instead of stretching every paragraph across a spread.
-- **Actions:** base labels use the label token. Opening action labels scale from 18px to 24px desktop, then 20px tablet / 18px mobile / 16px below 360px. Text links inherit the recorded role, with authored section overrides.
+- **Actions:** base labels use the label token. Opening action labels scale from 18px to 24px desktop, then 20px tablet and 16px on phones. The phone opening action fills the content width and has a 58px minimum height. Text links retain their section overrides.
 - **Captions:** the compact caption role identifies provenance; individual line-height and mobile sizes are local. Do not remove provenance to make a crop cleaner.
 
 **The Two Voices Rule.** Use Roboto Condensed for invitation and section hierarchy, Archivo for narrative and controls, and Anton only for the provisional identity.
 
 ## Layout
 
-The page is centered with a maximum width of 1800px. Full-bleed photography reaches that page boundary. Shared gutters and section spacing come from the frontmatter; at 900px and below they become 24px and 72px, with a 20px gutter below 360px. Native document scrolling remains the navigation model.
+The page is centered with a maximum width of 1800px. Full-bleed photography reaches that page boundary. At 900px gutters/section spacing become 24px/72px; at 600px they become 22px/60px, with a 20px gutter below 360px. Native document scrolling remains the navigation model.
 
-The opening room is clamp(610px, 47.08vw, 848px) high on desktop, yielding approximately 700px at the 1487px reference width. Its header overlays the image and its title starts within the same left gutter. The adjacent food/copy spread uses 58%/42% columns, 55%/45% between 901–1150px and 51%/49% on tablet. Below 601px it becomes a photograph followed by copy; the photograph uses a 1.6 aspect ratio and loses its diagonal. The mobile room remains the full background behind the invitation, action and address.
+The opening room is clamp(610px, 47.08vw, 848px) high on desktop, yielding approximately 700px at the 1487px reference width. Its header overlays the image. At 600px and below, the room becomes a 270–360px photographic opening under a fixed 76px header, emphasizing the bar with an 82% horizontal focal point. A tonal fade joins it to the dark reading field. The title has three lines, followed by concise copy, a full-width action and a compact address row. Height follows content; shorter phone screens use a tighter opening so the primary action is visible. The adjacent food/copy spread retains its desktop/tablet columns; on phones the photograph uses a 1.6 aspect ratio without the diagonal.
 
 Recurring lower spreads use a 1.3fr/1fr grid with an 8% gap; the offer panel becomes one column at 900px. Heritage uses a narrower photograph beside a wider narrative column and switches to copy before photograph on mobile. The desktop gallery uses unequal 1.3fr/1fr/.85fr image columns and a staggered middle tile. At 900px it becomes a native horizontal snap rail with 76% tiles, increasing to 86% on mobile. Contact information stays in two columns on tablet and one on mobile.
 
@@ -222,23 +222,23 @@ The system uses no box shadows. Depth comes from the interior's photographic per
 
 ## Shapes
 
-Actions, panels, tabs, image frames and dialogs are square. Circular controls are reserved for gallery arrows and dialog close. Fine one-pixel rules structure categories, provenance and practical information. The opening food image has a shallow sloping right boundary, removed on mobile; this is an established surface composition, not a requirement to cut every photograph diagonally.
+Actions, panels, image frames and dialogs are square. Mobile navigation toggles and category tabs use a restrained 4px radius. Circular controls are reserved for gallery arrows and standard dialog close. Fine one-pixel rules structure categories, provenance and practical information. The opening food image has a shallow sloping right boundary, removed on mobile.
 
 ## Components
 
 ### Buttons and text actions
 
-Confident rectangular actions with clear space for their SVG arrow. Lavender actions use ink labels; the directions action reverses this pairing. The base action has 56px minimum height, 17px/25px padding and a 30px label/arrow gap. The larger opening action has its own 68px desktop minimum and 60px mobile minimum. Legacy `light` and `orange` source variants currently resolve to the same lavender treatment; they do not introduce additional palette roles.
+Confident rectangular actions with clear space for their SVG arrow. Lavender actions use ink labels; the directions action reverses this pairing. The base action has 56px minimum height, 17px/25px padding and a 30px label/arrow gap. The opening action has a 68px desktop minimum, 60px on tablet and 58px on phones. Legacy `light` and `orange` variants resolve to lavender.
 
 Precise-pointer hover lightens lavender actions; the ink action uses its local purple-black hover. Arrow movement is 4px and press scale is .98. Global focus uses a 3px lavender outline with 5px offset; the directions field switches focus to ink. Text actions remain underlined and retain their 44px minimum target.
 
 ### Navigation and identity
 
-A compact provisional Anton name and lavender SVG star anchor an overlay header. Desktop navigation uses off-white Archivo links with a lavender underline on the first link. This is a static first-link treatment, not scroll-spy state. At 900px the navigation becomes a dark full-width disclosure below the 90px topbar. Closed links are inert; Escape returns focus to the toggle, and selecting an anchor closes the disclosure and focuses its destination.
+A compact provisional Anton name and lavender Phosphor star anchor the header. Desktop retains its overlay and three Archivo links. At 900px and below the header is fixed, opaque and 76px high plus safe area. A labeled Menu toggle opens a full-screen native dialog: numbered large-type links for Apericena, Il locale, Le serate and Dove siamo, with address/directions at the bottom. Background scroll locks, Tab wraps, Escape closes and restores the toggle; anchor selection closes and focuses the destination. Resize to desktop closes the dialog. Entry is 240ms/12px with 35ms stagger; reduced motion is immediate.
 
 ### Offer categories
 
-An open horizontal rail with a bottom rule. The selected category changes text, a three-pixel underline and arrow rotation together. Tabs use roving keyboard focus and Arrow/Home/End navigation. Pointer selection gives the photo a brief settle; keyboard selection is immediate. The supporting note remains visible and does not imply a confirmed menu, formula or price.
+Desktop uses an open horizontal rail with a bottom rule, selected underline and rotated arrow. At 900px and below, three equal-width 48px targets use lavender fill for selection and omit arrows. The category row stays below the fixed header while browsing its section. Phone images use a compact 3:2 frame; narrative follows with less spacing. Tabs preserve roving focus and Arrow/Home/End navigation. Pointer selection gives the photo a brief settle; keyboard selection is immediate. Provenance and offer caveats remain visible.
 
 ### Image spreads and gallery
 

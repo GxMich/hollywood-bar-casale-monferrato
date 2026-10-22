@@ -5,6 +5,7 @@ import { ListIcon } from '@phosphor-icons/react/dist/csr/List';
 import { XIcon } from '@phosphor-icons/react/dist/csr/X';
 import { StarIcon } from '@phosphor-icons/react/dist/csr/Star';
 import { animateElement, useMediaQuery } from '../motion.js';
+import { siteData } from '../data.js';
 
 export function Arrow({ diagonal = false, ...props }) {
   const Icon = diagonal ? ArrowUpRightIcon : ArrowRightIcon;
@@ -23,33 +24,61 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const mobile = useMediaQuery('(max-width: 900px)');
   const toggleRef = useRef(null);
-  const navRef = useRef(null);
+  const dialogRef = useRef(null);
+  const links = [
+    { href: '#apericena', label: 'Apericena' },
+    { href: '#locale', label: 'Il locale' },
+    { href: '#serate', label: 'Le serate', mobileOnly: true },
+    { href: '#contatti', label: 'Dove siamo' },
+  ];
   useEffect(() => {
-    if (!open) return;
-    const onKey = event => {
-      if (event.key === 'Escape') { setOpen(false); toggleRef.current?.focus(); }
+    if (!open || !mobile) return;
+    const dialog = dialogRef.current;
+    const overflow = document.body.style.overflow;
+    dialog.showModal();
+    dialog.scrollTop = 0;
+    dialog.querySelector('button').focus({ preventScroll: true });
+    document.body.style.overflow = 'hidden';
+    return () => {
+      dialog.close();
+      document.body.style.overflow = overflow;
     };
-    const onPointer = event => {
-      if (!navRef.current?.contains(event.target) && !toggleRef.current?.contains(event.target)) setOpen(false);
-    };
-    document.addEventListener('keydown', onKey);
-    document.addEventListener('pointerdown', onPointer);
-    return () => { document.removeEventListener('keydown', onKey); document.removeEventListener('pointerdown', onPointer); };
-  }, [open]);
+  }, [open, mobile]);
+  useEffect(() => { if (!mobile) setOpen(false); }, [mobile]);
   function navigate(event) {
-    setOpen(false);
-    if (!mobile) return;
     const target = document.getElementById(event.currentTarget.hash.slice(1));
-    requestAnimationFrame(() => target?.focus({ preventScroll: true }));
+    setOpen(false);
+    if (mobile) requestAnimationFrame(() => target?.focus({ preventScroll: true }));
   }
-  return <header id="inizio" className="site-header">
+  function trapNavigationFocus(event) {
+    if (event.key !== 'Tab') return;
+    const controls = dialogRef.current.querySelectorAll('a[href], button:not([disabled])');
+    const first = controls[0];
+    const last = controls[controls.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault(); last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault(); first.focus();
+    }
+  }
+  return <header className="site-header">
     <div className="topbar page-inset">
       <a href="#inizio" className="small-brand" aria-label="Hollywood Bar, torna all'inizio"><Wordmark /></a>
-      <button ref={toggleRef} className="nav-toggle" type="button" aria-label={open ? 'Chiudi navigazione' : 'Apri navigazione'} aria-expanded={open} aria-controls="main-navigation" onClick={() => setOpen(value => !value)}>{open ? <XIcon size={27} aria-hidden="true" /> : <ListIcon size={27} aria-hidden="true" />}</button>
-      <nav ref={navRef} id="main-navigation" className="main-navigation" aria-label="Navigazione principale" data-open={open} inert={mobile && !open} aria-hidden={mobile ? !open : undefined}>
-        <a href="#apericena" onClick={navigate}>Apericena</a><a href="#locale" onClick={navigate}>Il locale</a><a href="#contatti" onClick={navigate}>Dove siamo</a>
+      <button ref={toggleRef} className="nav-toggle" type="button" aria-label="Apri navigazione" aria-expanded={open} aria-controls="mobile-navigation" aria-haspopup="dialog" onClick={() => setOpen(true)}><span>Menu</span><ListIcon size={21} aria-hidden="true" /></button>
+      <nav id="main-navigation" className="main-navigation" aria-label="Navigazione principale">
+        {links.filter(link => !link.mobileOnly).map(link => <a key={link.href} href={link.href}>{link.label}</a>)}
       </nav>
     </div>
+    <dialog ref={dialogRef} id="mobile-navigation" className="navigation-dialog" aria-label="Menu di navigazione" onKeyDown={trapNavigationFocus} onCancel={() => setOpen(false)} onClose={event => { if (!event.currentTarget.open) setOpen(false); }}>
+      <div className="navigation-shell">
+        <div className="topbar page-inset"><a href="#inizio" className="small-brand" aria-label="Hollywood Bar, torna all'inizio" onClick={navigate}><Wordmark /></a><button type="button" className="nav-toggle" aria-label="Chiudi navigazione" onClick={() => setOpen(false)} autoFocus><span>Chiudi</span><XIcon size={21} aria-hidden="true" /></button></div>
+        <div className="navigation-body">
+          <p className="navigation-label">La tua serata, da qui.</p>
+          <nav aria-label="Navigazione mobile">{links.map((link, index) => <a key={link.href} href={link.href} onClick={navigate} style={{ '--nav-index': index }}><span className="navigation-number" aria-hidden="true">0{index + 1}</span><span>{link.label}</span><Arrow diagonal size={28} /></a>)}</nav>
+          <div className="navigation-footer"><p>Ci trovi a Casale.<span>{siteData.street}</span></p><ExternalLink href={siteData.mapsUrl} className="button button-lavender">Apri le indicazioni <Arrow diagonal size={24} /></ExternalLink></div>
+        </div>
+      </div>
+    </dialog>
   </header>;
 }
 

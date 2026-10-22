@@ -11,9 +11,15 @@ import { useHeroScene, useMediaQuery, useScrollChoreography } from './motion.js'
 function Hero({ actionsRef }) {
   const heroRef = useRef(null);
   useHeroScene(heroRef);
-  return <section ref={heroRef} className="hero" aria-labelledby="hero-title">
+  return <section ref={heroRef} id="inizio" className="hero" aria-labelledby="hero-title">
     <div className="hero-camera" aria-hidden="true"><picture><source media="(max-width: 900px)" srcSet={assetUrl('/images/scena/room-900.webp')} /><img src={assetUrl('/images/scena/room.webp')} width="1600" height="754" alt="" fetchPriority="high" /></picture></div><div className="hero-shade" aria-hidden="true" />
-    <div className="hero-content"><h1 id="hero-title"><span className="hero-line"><span>La serata</span></span><span className="hero-line"><span>prende <em>posto.</em></span></span></h1><p className="hero-description">Apericena, cocktail e compagnia. A Casale.</p><div ref={actionsRef} className="hero-actions"><a className="button button-lavender" href="#apericena">Scopri l’apericena <Arrow size={32} /></a></div><a href="#contatti" className="hero-address"><MapPinIcon size={30} weight="fill" aria-hidden="true" /><span>Corso Giovane Italia, 9<br />Casale Monferrato</span></a></div>
+    <div className="hero-content">
+      <p className="hero-kicker">Casale Monferrato</p>
+      <h1 id="hero-title"><span className="hero-line"><span>La serata</span></span><span className="hero-line"><span>prende <em className="hero-place">posto.</em></span></span></h1>
+      <p className="hero-description">Apericena, cocktail e compagnia.<span className="hero-description-city"> A Casale.</span></p>
+      <div ref={actionsRef} className="hero-actions"><a className="button button-lavender" href="#apericena">Scopri l’apericena <Arrow size={32} /></a></div>
+      <a href="#contatti" className="hero-address"><MapPinIcon size={30} weight="fill" aria-hidden="true" /><span>Corso Giovane Italia, 9<span className="hero-address-city">Casale Monferrato</span></span><Arrow diagonal className="hero-address-arrow" size={18} /></a>
+    </div>
   </section>;
 }
 
