@@ -1,0 +1,23 @@
+node_modules/
+dist/
+.playwright-cli/
+*.log
+
+# Local design iterations, source images and browser recordings.
+assets/
+plans/
+.impeccable/
+docs/**
+!docs/DEPLOYMENT.md
+!docs/ASSETS.md
+AGENTS.md
+PRODUCT.md
+design-qa.md
+
+# Machine-specific configuration and credentials.
+.npmrc
+.env*
+!.env.example
+*.pem
+*.key
+
